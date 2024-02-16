@@ -1,0 +1,30 @@
+/*
+HAVING CLAUSE -
+	
+*/
+
+--SELECT JobTitle, COUNT(JobTitle) AS JobTitle_Count
+--FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+--	JOIN SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeSalary
+--		ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+--WHERE COUNT(JobTitle) > 1
+--GROUP BY JobTitle
+---- THIS WILL RETURN AN ERROR TO OUTLINE THAT AN AGGREGATED FUNCTION CANNONT BE USED IN THE WHERE CLAUSE. 
+
+SELECT JobTitle, COUNT(JobTitle) AS JobTitle_Count
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+	JOIN SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeSalary
+		ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+GROUP BY JobTitle
+HAVING COUNT(JobTitle) > 1
+-- HERE THE QUERY HAS BEEN IMPROVED. NOTICE HOW THE HAVING COMES AFTER THE GROUP BY CLAUSE. 
+
+
+
+SELECT JobTitle, AVG(Salary) AS Salary_Avgerage
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+	JOIN SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeSalary
+		ON EmployeeDemographics.EmployeeID = EmployeeSalary.EmployeeID
+GROUP BY JobTitle
+HAVING AVG(Salary) > 45000
+ORDER BY AVG(Salary)
