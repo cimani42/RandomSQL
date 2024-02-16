@@ -1,0 +1,26 @@
+/*
+UPDATING/DELETING DATA - 
+	Difference between inserting and updating:
+		INSERT INTO will create a new row in the table. 
+		Updating will alter a pre-exisitng row in the table. 
+	Deleting specifies the rows you would like to remove. 
+	
+	There will often be a unique key that can be utlisied when making the alterations. 
+*/
+
+SELECT * 
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+
+UPDATE SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+SET EmployeeID = 1012 -- SPECIFIES THE COLUMN AND VALUE YOU WOULD LIKE TO POPULATE THE FIELD WITH. 
+WHERE FirstName = 'Holly' AND LastName = 'Flax'
+
+UPDATE SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+SET Age = 31 AND Gender = 'Female'
+WHERE FirstName = 'Angela' AND LastName = 'Martin'
+
+DELETE 
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+WHERE EmployeeID = 1005
+-- There is no way to get the data from the delete statement once it has run. 
+		-- Using a safeguard - 'SELECT' - can help know what is going to be removed from the table before executing the query. 
