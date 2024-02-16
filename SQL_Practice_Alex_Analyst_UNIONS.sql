@@ -1,37 +1,33 @@
 /*
-WHERE statement: 
-	limits the amount of data pulled
-	specifies the date that you want to return
+UNIONS - COMBINING TWO OR MORE TABLES FOR ONE OUTPUT. 
 
-=, <>, <, >, And, Or, Like, Null, Not Null, In 
+	JOINS WORK USING A COMMON COLUM BETWEEN TABLES.
+	UNIONS SELECT ALL DATA FROM BOTH TABLES; EACH COLUMN IS RETURNED
 
 */
 
---SELECT *
---FROM EmployeeDemographics
---WHERE FirstName <> 'Jim' 
+SELECT *
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+	FULL OUTER JOIN SQL_AlexTheAnalyst_Tutorial.dbo.WareHouseEmployeeDemographics
+		ON EmployeeDemographics.EmployeeID = WareHouseEmployeeDemographics.EmployeeID 
 
---SELECT *
---FROM EmployeeDemographics
---WHERE FirstName =  'Jim' 
 
---SELECT * 
---FROM EmployeeDemographics
---WHERE Age > 31
+SELECT * 
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+UNION
+SELECT *
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.WareHouseEmployeeDemographics
+-- THIS 'UNION' SYNTAX WILL REMOVE ALL THE DUPLICATES PRESENT BETWEEN THE TABLE WHEN QUERIED. 
+-- IF YOU WANT TO SHOW THE DATA AS IS, THEN YOU CAN USE 'UNION ALL'.
 
---SELECT *
---FROM EmployeeDemographics
---WHERE Age <= 30 AND Gender = 'Male'
 
---SELECT *
---FROM EmployeeDemographics
---WHERE LastName Like '%S%' -- Using a wildcard to return data.
+-- THE ABOVE EXAMPLE WORKS AS THE ATTRIBUTES HAVE THE SAME NAMES AND DATA TYPE. 
+-- HOWEVER, UNIONS CAN OCCUR WHERE THERE ARE SIMILAR INFORMATION BETWEEN TABLES: 
 
---SELECT *
---FROM EmployeeDemographics
---WHERE FirstName IS NOT NULL
-
---SELECT *
---FROM EmployeeDemographics
---WHERE FirstName IN ('Jim', 'Michael', 'Toby')
----- 'IN' is similar to having multiple equal statments (=)
+SELECT EmployeeID, FristName, Age
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics
+UNION
+SELECT EmployeeID, JobTitle, Salary
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeSalary
+ORDER BY EmployeeID
+-- HERE YOU WILL HAVE TO MAKE SURE THAT THE INFORMATION YOU ARE QUERING IS THE SAME TO UTILISE THE UNION FUNCTION. 
