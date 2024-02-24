@@ -1,0 +1,35 @@
+/*
+PARTION BY: 
+Partition By - divides results into partitions and changes how window funtion is calculated. 
+				does not change how reduced the rows returned in output. 
+
+				Compared to Group By as Group By reduces the number of rows in a statement, for each group. 
+*/
+
+
+SELECT FirstName, LastName, Gender, Salary,
+	count(Gender) OVER (PARTITION BY Gender) AS TotalGender 
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics AS dDEMO
+JOIN SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeSalary AS dSALARY
+	ON dDEMO.EmployeeID = dSALARY.EmployeeID
+-- We are able to isolate the one column needed to perform the aggregated function on. 
+-- This provides scope for additional columns 
+-- Aggregated - PARTITION BY - is maintained across each row. 
+
+
+-- Showing the effect of using the GROURP BY CLAUSE
+
+SELECT FirstName, LastName, Gender, Salary, COUNT(Gender) AS Gender_Count
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics AS dDEMO
+JOIN SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeSalary AS dSALARY
+	ON dDEMO.EmployeeID = dSALARY.EmployeeID
+GROUP BY FirstName, LastName, Gender, Salary
+-- All columns have to be used in the group by function. 
+-- Notice the output is differnce with the aggregation. It does not refect the intended. 
+-- This will have to be amended in the below... 
+
+SELECT Gender, COUNT(Gender) AS Gender_Count
+FROM SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeDemographics AS dDEMO
+JOIN SQL_AlexTheAnalyst_Tutorial.dbo.EmployeeSalary AS dSALARY
+	ON dDEMO.EmployeeID = dSALARY.EmployeeID
+GROUP BY Gender
